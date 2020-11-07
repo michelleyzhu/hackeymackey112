@@ -31,30 +31,21 @@ def findIntroducedBills(topic, chamber, specificInterest, userBelief):
     billTitles = soup.find_all("span", class_="result-title")[::2]
     billCosponsors = soup.find_all("span", class_="result-item")[::8]
     billUrls = []
+    billParties = []
     for i in range(10):
-        try:
-            links = billCosponsors[i].find_all("a")
-            billCosponsors[i] = "https://www.congress.gov/" + links[1].get("href")
-            billUrls.append(billNums[i].find("a").get("href"))
-        except:
-            pass
-    billParties = ["R"] * len(billNums)
-    for i in range(10):
-        try:
-            billNums[i] = billNums[i].find("a").get_text()
-            billTitles[i] = billTitles[i].get_text()
-            links = billUrls[i].find_all("a")
-            cosponsorLink = "https://www.congress.gov/" + links[1].get("href")
-            billParties[i] = billIdeology(cosponsorLink)
-            print(i)
-        except:
-            pass
+        #try:
+        billUrls.append("https://www.congress.gov/" + billNums[i].find("a").get("href"))
+        billNums[i] = billNums[i].find("a").get_text()
+        billTitles[i] = billTitles[i].get_text()
+        links = billCosponsors[i].find_all("a")
+        billCosponsors[i] = "https://www.congress.gov/" + links[1].get("href")
+        billParties.append(billIdeology(billCosponsors[i]))
+        print(billNums[i], billTitles[i], billCosponsors[i], billUrls[i])
     result = []
-    userAgreement = [False] * len(billNums)
+    userAgreement = []
     for i in range(10):
         try:
-            userAgreement[i] = (billParties[i] == "I" or billParties[i] == userBelief)
-            print(billParties[i])
+            userAgreement.append(billParties[i] == "I" or billParties[i] == userBelief)
             result.append((billNums[i], billTitles[i], userAgreement[i], billUrls[i]))
         except:
             pass
@@ -87,6 +78,6 @@ def billIdeology(url):
     return "Bipartisan"
     
 
-#print(findIntroducedBills("Health", "House", "abortion", "D"))
+print(findIntroducedBills("Health", "House", "abortion", "D"))
 
-print(billIdeology("https://www.congress.gov/bill/116th-congress/house-bill/1692/cosponsors?q={%22search%22:[%22abortion%22]}&r=3&s=2&searchResultViewType=expanded"))
+#print(billIdeology("https://www.congress.gov/bill/116th-congress/house-bill/1692/cosponsors?q={%22search%22:[%22abortion%22]}&r=3&s=2&searchResultViewType=expanded"))
