@@ -5,6 +5,7 @@ from tkmacosx import Button
 import random
 import string
 import time
+import processTopics
 import scraping_reps as sr
 from dataclasses import make_dataclass
 from longQuizClass import *
@@ -34,10 +35,10 @@ for frame in (main, quiz, mail, cand, ops, f5, victory, f7):
 Drawing banners
 '''
 # top banner
-photo1 = PhotoImage(file = "pictures/flowers.gif")
+photo1 = PhotoImage(file = "pictures/flower.gif")
 Label (main, image = photo1, bg = 'black') .grid(row=0, column=0, columnspan=3)
 Label (main, text = 'Election Dashboard', bg = '#e8e3d3', fg = 'black', \
-font = 'Times 50 bold') .grid(row=0, column=0, columnspan=3)
+font = 'Times 60 bold') .grid(row=0, column=0, columnspan=3)
 
 # bottom banner
 photo2 = PhotoImage(file = "pictures/flowerbot.gif")
@@ -48,7 +49,7 @@ Making buttons
 '''
 # buttons
 w = 350 
-h = 250
+h = 350
 bgcolor = '#fff4cf'
 main.configure(background = '#e8e3d3')
 # quiz button
@@ -61,25 +62,11 @@ mailimage = PhotoImage(file = "pictures/important-mail.png")
 Button (main, compound=TOP, text = 'send mail', image = mailimage, bg = bgcolor, 
 fg = 'black', font = 'times 30 bold', width = w, height = h, \
 command=lambda:raise_frame(mail)).grid(row = 1, column = 1)
-# random button
+# search button
 search = PhotoImage(file = "pictures/search.png")
 Button (main, compound=TOP, text = 'candidate research', bg = bgcolor, 
 fg = 'black', font = 'times 30 bold', width = w, height = h, image = search, \
 command=lambda:raise_frame(cand)).grid(row = 1, column = 2)
-# random button
-Button (main, compound=TOP, text = 'idk', bg = bgcolor, 
-fg = 'black', font = 'times 30 bold', width = w, height = h,  \
-command=lambda:raise_frame(f5)).grid(row = 2, column = 0)
-# random button
-victory = PhotoImage(file = "pictures/victory.png")
-Button (main, compound=TOP, text = 'path to victory', bg = bgcolor, image = victory,
-fg = 'black', font = 'times 30 bold', width = w, height = h, \
-command=lambda:raise_frame(victory)).grid(row = 2, column = 1)
-# random button
-Button (main, compound=TOP, text = 'idk', bg = bgcolor, 
-fg = 'black', font = 'times 20 bold', width = w, height = h, \
-command=lambda:raise_frame(f7)).grid(row = 2, column = 2)
-
 
 
 
