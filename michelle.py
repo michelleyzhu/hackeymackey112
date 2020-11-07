@@ -124,8 +124,15 @@ def click():
     userInput['issue'] = issue.get()
     Label(mail, text = 'Information received, gathering data...', bg = 'white') \
     .grid(row = 10, column = 3, columnspan = 3, sticky = W)
-    output.insert(END, sr.findHouseRep(userInput['state']))
-
+    if userInput['zipcode'] != None:
+        try:
+            output.insert(END, sr.findHouseRep(userInput['zipcode']))
+        except:
+            output.insert(END, 'invalid zipcode')
+    if userInput['state'] != set():
+        output.insert(END, sr.findSenators(userInput['state']))
+    else:
+        output.insert(END, 'invalid state')
 '''
 Make mail
 '''
