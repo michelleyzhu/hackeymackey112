@@ -62,12 +62,11 @@ def lookThroughSources(sites):
         if text == None:
             continue
         searchPageText(text, sentenceDict, address)
-    print(sentenceDict)
+
+    return sentenceDict
     
 def getPageText(address):
     url = address
-    #html = urlopen(url).read()
-    #soup = BeautifulSoup(html, features="html.parser")
 
     values = {'language': 'Python' }
     headers = {'User-Agent': "Mozilla/5.0"}
@@ -114,17 +113,6 @@ def searchPageText(text, localDict, address):
 
 
 
-sourcesSet = getURLs("abortion bad") 
+sourcesSet = getURLs("tax wealthy good") 
 lookThroughSources(sourcesSet)
 
-
-'''
-Hello my name is ____. I live in ______. 
-
-I noticed on this_____ you voted this______. This matters to me a lot, and I believe ______.
-
-
-
-I am emailing you about ______. Here is why this issue is important:
-Generate 6 statistics
-They pick 3 that speak to them'''
