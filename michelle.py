@@ -7,7 +7,10 @@ import string
 import time
 import processTopics
 from dataclasses import make_dataclass
+import scraping-reps
 
+# dictionary of representatives
+repsDict = scraping-reps
 
 # interest is yes, no or "unanswered"
 topic = make_dataclass('topic', 
@@ -86,7 +89,6 @@ command=lambda:raise_frame(f7)).grid(row = 2, column = 2)
 '''
 Make quiz
 '''
-
 # List of topics and their options
 topicDict = {
     'legalized abortion' : ['pro-life', 'pro-choice'],
