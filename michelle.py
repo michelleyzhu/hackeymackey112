@@ -7,7 +7,7 @@ import string
 import time
 import scraping_reps as sr
 from dataclasses import make_dataclass
-from quizClass import *
+from longQuizClass import *
 
 def raise_frame(frame):
     frame.tkraise()
@@ -86,8 +86,6 @@ command=lambda:raise_frame(f7)).grid(row = 2, column = 2)
 # interest is yes, no or "unanswered"
 topic = make_dataclass('topic', 
     ['name','interest', 'options', 'opinion','opinionSaved'])
-
-
 '''
 Make quiz
 '''
@@ -106,7 +104,7 @@ for t in topicDict:
         options=topicDict[t], opinionSaved = False, opinion = None)
     responses[t] = newTopic
 
-generateInterestQuiz(frame,main,quiz,ops,topicDict,responses)
+generateInterestQuiz(frame,main,mail,quiz,ops,topicDict,responses)
 ######################################################################
 # ops page
 ######################################################################
