@@ -1,26 +1,7 @@
 # hackeymackey112
 
-Our project:
-- quiz on gauging user's political beliefs
-- formulates an email based on the user's belief to send to their congress person
+Our project is designed to make political engagement faster and easier than ever. Users begin by taking a brief quiz on their political beliefs to determine which issues they are most passionate about and their stances on those particular issues. After the quiz, users are automatically redirected to another page, where they are presented with an automatically-generated email to one of their congressional representatives.
 
-Final Product:
-- visit a website with 3 buttons
-- 3 features
-
--Quiz
-  -take the quiz
-  -get your email
-  -copy and paste and send the email
-
-Modules/imports need to be installed for it
-  -beautiful soup 4
-  -google
-  -regular expressions
-  -urllib 
+Using information gathered from our political belief quiz and linguistic analysis of bills, our program predicts which bills currently before Congress will be of greatest interest to the user, in addition to their likely stance on them. Using this information and relevant statistics scraped from the web, our program then crafts a unique email to the user's senator or house representative, stating why the congressperson should support or oppose the bill.
   
-Teammates
-  -Alexis Axon
-  -Michelle Li
-  -Michelle Zhu
-  -Sophie Liu
+Project by Alexis Axon, Michelle Li, Michelle Zhu and Sophie Liu
