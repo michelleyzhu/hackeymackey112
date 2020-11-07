@@ -109,18 +109,22 @@ Label (quiz, text='Political Alignment Quiz').grid(row = 1,column = 1, columnspa
 Label (quiz, text='Please rate your interest \
     level in the following issues').grid(row = 2,column = 1, columnspan = 3)
 
-def enterInterest(level, t):
-    #.configure(bg='blue')
+def enterInterest(level,t):
     responses[t].interest = level
+
 
 # Buttons for selecting interest levels in each topic
 rowCount = 3
 for t in topicDict:
     Label (quiz, text=t).grid(row = rowCount, column = 1)
-    Button (quiz, text="low", \
-        command=enterInterest("low", t)).grid(row = rowCount, column = 2)
-    Button (quiz, text="high", \
-        command=enterInterest("high", t)).grid(row = rowCount, column = 3)
+    lowButton = Button (quiz, text="low",command=lambda: enterInterest('low', t))
+    
+    '''if(responses[t].interest != 'unanswered'):
+        lowButton.configure(bg = 'green')'''
+    lowButton.grid(row = rowCount, column = 2)
+    
+    highButton = Button (quiz, text="high", command=lambda: enterInterest('high', t))
+    highButton.grid(row = rowCount, column = 3)
     rowCount += 1
 
 def submitInterestLevels():
