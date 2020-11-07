@@ -5,7 +5,6 @@ from tkmacosx import Button
 import random
 import string
 import time
-import processTopics
 import scraping_reps as sr
 from dataclasses import make_dataclass
 from quizClass import *
@@ -200,7 +199,6 @@ Button(cand, text='Go to home screen', command=lambda:raise_frame(main)).pack()
 
 '''
 Get representatives
-
 senator, houserep = None, None
 # dictionary of representatives
 senator = sr.findSenators(userInput[zipcode])
@@ -217,19 +215,15 @@ root.mainloop()
 app = Tk()
 app.title("Election Dashboard")
 app.configure(background = 'white')
-
 # top banner
 photo1 = PhotoImage(file = "totoro.gif")
 Label (app, image = photo1, bg = 'black') \
 .grid(row = 0, column = 0, sticky = E)
-
 Label (app, text = 'Dashboard', bg = 'black', fg = 'white', font = 'none 50 bold') \
 .grid(row = 0, column = 0)
-
 # make button
 Button (app, text = 'mail', bg = 'pink', fg = 'black', font = 'none 12 bold', \
 width = '40', height = '20', command = click .grid(row = 1, column = 0, sticky = W)
-
 # text entry box
 #textentry = Entry(app, width = 20, bg = 'white')
 #textentry.grid(row = 2, column = 0, sticky = W)
@@ -241,12 +235,10 @@ def appStarted(app):
     app.email = False
     app.bXY = dict()
     buttonXY(app)
-
 def mousePressed(app, event):
     if event.y >= app.bXY['email'][1] and event.y <= app.bXY['email'][3]:
         if event.x >= app.bXY['email'][0] and event.x <= app.bXY['email'][2]:
             app.email = True 
-
 def buttonXY(app):
     buttons = ('none1', 'email', 'none2', 'none3', 'none4', 'none5')
     i = 0
@@ -258,19 +250,15 @@ def buttonXY(app):
             y2 = y + app.buttonHeight
             app.bXY[buttons[i]] = (x1, y1, x2, y2)
             i += 1
-
 def drawButtons(app, canvas):
     for button in app.bXY:
         (x1, y1, x2, y2) = app.bXY[button]
         canvas.create_rectangle(x1, y1, x2, y2, fill = 'pink')
-
 def drawEmail(app, canvas):
     canvas.create_rectangle(0, 0, app.width, app.height, fill = 'white')
-
 def redrawAll(app, canvas):
     drawButtons(app, canvas)
     if app.email:
         drawEmail(app, canvas)
-
 runApp(width=1243, height=750)
 '''
