@@ -8,10 +8,7 @@ import time
 import processTopics
 import scraping_reps as sr
 from dataclasses import make_dataclass
-
-# interest is yes, no or "unanswered"
-topic = make_dataclass('topic', 
-    ['name','interest', 'options', 'opinion','opinionSaved'])
+from quiz import *
 
 def raise_frame(frame):
     frame.tkraise()
@@ -23,7 +20,7 @@ root.geometry('1206x750')
 
 main = Frame(root)
 quiz = Frame(root)
-
+ops = Frame(root)
 mail = Frame(root)
 cand = Frame(root)
 f5 = Frame(root)
@@ -31,7 +28,7 @@ f6 = Frame(root)
 f7 = Frame(root)
 userInput = dict()
 
-for frame in (main, quiz, mail, cand, f5, f6):
+for frame in (main, quiz, mail, cand, ops, f5, f6):
     frame.grid(row=0, column=0, sticky='news')
 
 '''
@@ -83,6 +80,14 @@ Button (main, compound=TOP, text = 'idk', bg = bgcolor,
 fg = 'black', font = 'times 20 bold', width = w, height = h, \
 command=lambda:raise_frame(f7)).grid(row = 2, column = 2)
 
+
+
+
+# interest is yes, no or "unanswered"
+topic = make_dataclass('topic', 
+    ['name','interest', 'options', 'opinion','opinionSaved'])
+
+
 '''
 Make quiz
 '''
@@ -101,38 +106,11 @@ for t in topicDict:
         options=topicDict[t], opinionSaved = False, opinion = None)
     responses[t] = newTopic
 
-# Quiz Header
-Label (quiz, text='Political Alignment Quiz').grid(row = 1,column = 1, columnspan = 3)
-Label (quiz, text='Please rate your interest \
-    level in the following issues').grid(row = 2,column = 1, columnspan = 3)
+generateInterestQuiz(main,quiz,ops,topicDict,responses)
+######################################################################
+# ops page
+######################################################################
 
-def enterInterest(level,t):
-    responses[t].interest = level
-    for response in responses:
-        print(response,responses[response].interest)
-
-
-# Buttons for selecting interest levels in each topic
-rowCount = 3
-
-for t in topicDict:
-    Label (quiz, text=t).grid(row = rowCount, column = 1)
-    Button (quiz, text="low",command=lambda x=t: enterInterest('low', x))\
-        .grid(row = rowCount, column = 2)
-    Button (quiz, text="high", command=lambda x=t: enterInterest('high', x))\
-        .grid(row = rowCount, column = 3)
-    rowCount += 1
-
-def submitInterestLevels():
-    # just move on, raise next frame
-    print("submitted!")
-
-#Quiz footer
-Button (quiz, text='Submit interest levels(next)', \
-    command=lambda:submitInterestLevels()).grid(row = rowCount, column = 1, columnspan = 3)
-rowCount += 1
-Button (quiz, text='Go to home screen', \
-    command=lambda:raise_frame(main)).grid(row = rowCount, column = 1, columnspan = 3)
 
 
 '''
