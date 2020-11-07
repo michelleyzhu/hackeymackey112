@@ -104,23 +104,55 @@ generateInterestQuiz(frame,main,quiz,ops,topicDict,responses)
 Submit buttom
 '''
 def click():
+    labeltext = ''
+    gotZipcode = False
+    gotState = False
     userInput['name'] = name.get()
     userInput['party'] = party.get()
     userInput['zipcode'] = zipcode.get()
     userInput['state'] = state.get()
     userInput['issue'] = issue.get()
-    Label(mail, text = 'Information received, gathering data...', bg = 'white') \
-    .grid(row = 10, column = 3, columnspan = 3, sticky = W)
-    output.delete(0.0, END)
     if userInput['zipcode'] != None:
         try:
-            output.insert(END, 'Your house representative is: ' + sr.findHouseRep(userInput['zipcode']))
+            houserep = sr.findHouseRep(userInput['zipcode'])
+            output.insert(END, 'Your house representative is: ' + houserep)
+            gotZipcode = True
         except:
-            output.insert(END, 'invalid zipcode')
+            labeltext += 'invalid zipcode    '
     if userInput['state'] != None and sr.findSenators(userInput['state']) != set():
-        output.insert(END, '\nYour senators are: ' + ', '.join(sr.findSenators(userInput['state'])))
+        senators = sr.findSenators(userInput['state'])
+        output.insert(END, '\nYour senators are: ' + ', '.join(senators))
+        gotState = True
     else:
-        output.insert(END, '\ninvalid state')
+        labeltext += 'invalid state    '
+    if gotZipcode and gotState and name.get() != None and party.get() != None and issue.get() != None:
+        Label(mail, text = 'Information received, gathering data...', bg = 'white')\
+        .grid(row = 10, column = 3, columnspan = 3, sticky = W)
+    else:
+        Label(mail, text = labeltext, bg = 'white') \
+        .grid(row = 10, column = 3, columnspan = 3, sticky = W)
+    if gotZipcode and gotState and name.get() != None and party.get() != None and issue.get() != None:
+        senators = list(senators)
+        Button (mail, text = houserep, width = 100, command=click) \
+        .grid(row = 13, column = 2, sticky = W)
+        Button (mail, text = senators[0], width = 100, command=click) \
+        .grid(row = 13, column = 3, sticky = W)
+        Button (mail, text = senators[1], width = 100, command=click) \
+        .grid(row = 13, column = 4, sticky = W)
+        emailText = f'''Dear Congress Person {senator}:
+        My name is {userInput['name']} and I reside at [Insert Your Address] in [Insert Your City], 
+        {userInput['state']}.  I am {statusAbout}.  
+        I am writing you about {issue}, and asking that you stand {stance} it. 
+        This issue is important to me because:
+        According to {source1}, \" {content1}\"
+        And according to {source2}, \" {content2}\"
+        I appreciate your help and ask that you please send me a response letting me know 
+        if you are able to pass a Bill that would improve lives of American citizens like me.
+        Thank you for your time and considering my request.
+        Sincerely,
+        {name}
+        '''
+        
     
 
 '''
@@ -158,7 +190,7 @@ Button (mail, text = 'SUBMIT', width = 100, command=click) \
 .grid(row = 10, column = 2, sticky = W)
 Label(mail, font = 'Arial 13 bold') .grid(row = 11, column = 2)
 output = Text (mail, width = 75, height = 20, wrap = WORD, bg = 'white') 
-output.grid(row = 13, column = 2, columnspan = 3, sticky = W)
+output.grid(row = 14, column = 2, columnspan = 3, sticky = W)
 
 '''
 Make research
