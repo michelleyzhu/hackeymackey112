@@ -171,8 +171,8 @@ def click():
     userInput['state'] = state.get()
     userInput['issue'] = issue.get()
     Label(mail, text = 'Information received, gathering data...', bg = 'white') \
-    .grid(row = 9, column = 3, columnspan = 3, sticky = W)
-    output.insert(END, 'Email draft')
+    .grid(row = 10, column = 3, columnspan = 3, sticky = W)
+    output.insert(END, sr.findHouseRep(userInput['state']))
 
 '''
 Make mail
@@ -196,7 +196,7 @@ Label(mail, text='Zipcode: ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 6, column = 2, sticky = W)
 zipcode = Entry(mail, width = 20, bg = 'white')
 zipcode.grid(row = 6, column = 3, sticky = W)
-Label(mail, text='State: ',
+Label(mail, text='State (Not abbreviated): ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 7, column = 2, sticky = W)
 state = Entry(mail, width = 20, bg = 'white')
 state.grid(row = 7, column = 3, sticky = W)
@@ -209,7 +209,7 @@ Button (mail, text = 'SUBMIT', width = 100, command=click) \
 .grid(row = 10, column = 2, sticky = W)
 Label(mail, font = 'Arial 13 bold') .grid(row = 11, column = 2)
 output = Text (mail, width = 75, height = 20, wrap = WORD, bg = 'white') 
-output.grid(row = 12, column = 2, columnspan = 3, sticky = W)
+output.grid(row = 13, column = 2, columnspan = 3, sticky = W)
 
 '''
 Make research
@@ -219,12 +219,13 @@ Button(cand, text='Go to home screen', command=lambda:raise_frame(main)).pack()
 
 '''
 Get representatives
-'''
+
+senator, houserep = None, None
 # dictionary of representatives
 senator = sr.findSenators(userInput[zipcode])
 # dictionary of representatives
 houserep = sr.findHouseRep(userInput[state])
-
+'''
 # run
 raise_frame(main)
 root.mainloop()
