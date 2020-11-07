@@ -1,7 +1,14 @@
 from getStatistics import *
 import random
-sourcesSet = getURLs("abortion bad") 
-sourceQuoteDict = lookThroughSources(sourcesSet)
+
+def generateQuoteAndSource(query):
+    sourcesSet = getURLs(query) 
+    sourceQuoteDict = lookThroughSources(sourcesSet)
+    source1, quotes = random.choice(list(sourceQuoteDict.items()))
+    randSourceEntry = random.choice(list(quotes))
+    print("separate")
+    print(source1, randSourceEntry)
+    return (source1, randSourceEntry)
 
 
 zipcode = 1
@@ -14,15 +21,8 @@ senator = 6
 #i need
 statusAbout = 7
 stance = 8
-source1, content1 = generateSources(sourceQuoteDict)
-source2, content2 = generateSources(sourceQuoteDict)
-
-
-
-def generateSources(sourceQuoteDict):
-    source1 = random.choice(list(d.items()))
-    randSourceEntry = random.choice(list(capital))
-    return (source1, randSourceEntry)
+source1, content1 = generateQuoteAndSource("abortion")
+source2, content2 = generateQuoteAndSource("abortion")
 
 
 
