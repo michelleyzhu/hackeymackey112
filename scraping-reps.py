@@ -17,12 +17,20 @@ def findSenators(state):
     req = requests.get(senatorsUrl, headers)
     soup = BeautifulSoup(req.content, 'html.parser')
     currentSenators = soup.select("div[class='thumbcaption text-align-center']")
-    value = []
+    value = set()
     for senator in currentSenators:
-        pass
-        #will add senators to list to return
+        person = senator.find("a").get_text()
+        value.add(person)
     return value
 
+def findHouseRep(zipCode):
+    houseUrl = "https://ziplook.house.gov/htbin/findrep_house?ZIP=" + str(zipCode)
+    req = requests.get(houseUrl, headers)
+    soup = BeautifulSoup(req.content, 'html.parser')
+    currentRep = soup.find("div", id="PossibleReps").find("a").get_text()
+    return currentRep
 
 
-findSenators("Alabama")
+
+
+findHouseRep(15213)
