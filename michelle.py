@@ -113,41 +113,15 @@ def enterInterest(level,t):
 
 
 # Buttons for selecting interest levels in each topic
-
 rowCount = 3
 
-t1 = 'legalized abortion'
-Label (quiz, text=t1).grid(row = rowCount, column = 1)
-Button (quiz, text="low",command=lambda: enterInterest('low', t1)).grid(row = rowCount, column = 2)
-Button (quiz, text="high", command=lambda: enterInterest('high', t1)).grid(row = rowCount, column = 3)
-rowCount += 1
-
-t2 = 'gun rights'
-Label (quiz, text=t2).grid(row = rowCount, column = 1)
-Button (quiz, text="low",command=lambda: enterInterest('low', t2)).grid(row = rowCount, column = 2)
-Button (quiz, text="high", command=lambda: enterInterest('high', t2)).grid(row = rowCount, column = 3)
-rowCount += 1
-
-t3 = 'tax the ultra-wealthy'
-Label (quiz, text=t3).grid(row = rowCount, column = 1)
-Button (quiz, text="low",command=lambda: enterInterest('low', t3)).grid(row = rowCount, column = 2)
-Button (quiz, text="high", command=lambda: enterInterest('high', t3)).grid(row = rowCount, column = 3)
-rowCount += 1
-
-t4 = 'undocumented immigration'
-Label (quiz, text=t4).grid(row = rowCount, column = 1)
-Button (quiz, text="low",command=lambda: enterInterest('low', t4)).grid(row = rowCount, column = 2)
-Button (quiz, text="high", command=lambda: enterInterest('high', t4)).grid(row = rowCount, column = 3)
-rowCount += 1
-
-'''
 for t in topicDict:
-    a = t
-    Label (quiz, text=a).grid(row = rowCount, column = 1)
-    Button (quiz, text="low",command=lambda: enterInterest('low', a)).grid(row = rowCount, column = 2)
-    Button (quiz, text="high", command=lambda: enterInterest('high', a)).grid(row = rowCount, column = 3)
+    Label (quiz, text=t).grid(row = rowCount, column = 1)
+    Button (quiz, text="low",command=lambda x=t: enterInterest('low', x))\
+        .grid(row = rowCount, column = 2)
+    Button (quiz, text="high", command=lambda x=t: enterInterest('high', x))\
+        .grid(row = rowCount, column = 3)
     rowCount += 1
-'''
 
 def submitInterestLevels():
     # just move on, raise next frame
