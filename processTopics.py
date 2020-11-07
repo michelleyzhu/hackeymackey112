@@ -5,7 +5,7 @@ topic = make_dataclass('Topic',
     ['name','interest', 'options', 'opinion','opinionSaved'])
 
 #issues = make_dataclass('Issues', ['topics', 'currTopicIndex'])
-
+'''
 topicDict = {
     'legalized abortion' : ['pro-life', 'pro-choice']
     'gun rights' : ['favor gun control', 'oppose gun control']
@@ -19,5 +19,6 @@ for topic in topicDict:
         options = topicDict[topic], 'opinionSaved' = False)
 
 currTopic = 0
+'''
 # when we start iterating through, everytime "unanswered" is unchecked
 # currTopic increases
