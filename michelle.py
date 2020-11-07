@@ -30,13 +30,13 @@ for frame in (main, quiz, mail, cand, f5, f6):
 Drawing banners
 '''
 # top banner
-photo1 = PhotoImage(file = "flowers.gif")
+photo1 = PhotoImage(file = "pictures/flowers.gif")
 Label (main, image = photo1, bg = 'black') .grid(row=0, column=0, columnspan=3)
 Label (main, text = 'Election Dashboard', bg = '#e8e3d3', fg = 'black', \
 font = 'Times 50 bold') .grid(row=0, column=0, columnspan=3)
 
 # bottom banner
-photo2 = PhotoImage(file = "flowerbot.gif")
+photo2 = PhotoImage(file = "pictures/flowerbot.gif")
 Label (main, image = photo2, bg = 'black') .grid(row = 3, column = 0, columnspan=3)
 
 '''
@@ -48,17 +48,17 @@ h = 250
 bgcolor = '#fff4cf'
 main.configure(background = '#e8e3d3')
 # quiz button
-quizimage = PhotoImage(file = "question-mark.png")
+quizimage = PhotoImage(file = "pictures/question-mark.png")
 Button (main, compound=TOP, text = 'political alignment quiz', font = 'times 30 bold', 
 width = w, height = h, bg = bgcolor, fg = 'black', image = quizimage, 
 command=lambda:raise_frame(quiz)) .grid(row = 1, column = 0)
 # mail button
-mailimage = PhotoImage(file = "important-mail.png")
+mailimage = PhotoImage(file = "pictures/important-mail.png")
 Button (main, compound=TOP, text = 'send mail', image = mailimage, bg = bgcolor, 
 fg = 'black', font = 'times 30 bold', width = w, height = h, \
 command=lambda:raise_frame(mail)).grid(row = 1, column = 1)
 # random button
-search = PhotoImage(file = "search.png")
+search = PhotoImage(file = "pictures/search.png")
 Button (main, compound=TOP, text = 'candidate research', bg = bgcolor, 
 fg = 'black', font = 'times 30 bold', width = w, height = h, image = search, \
 command=lambda:raise_frame(cand)).grid(row = 1, column = 2)
