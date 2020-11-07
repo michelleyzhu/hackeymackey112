@@ -1,4 +1,7 @@
 # homepage
+import module_manager
+module_manager.review()
+
 import math, copy, random
 from tkinter import *
 from tkmacosx import Button
