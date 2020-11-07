@@ -6,11 +6,8 @@ import random
 import string
 import time
 import processTopics
+import scraping_reps as sr
 from dataclasses import make_dataclass
-import scraping-reps
-
-# dictionary of representatives
-repsDict = scraping-reps
 
 # interest is yes, no or "unanswered"
 topic = make_dataclass('topic', 
@@ -142,6 +139,7 @@ Label (quiz, text=t4).grid(row = rowCount, column = 1)
 Button (quiz, text="low",command=lambda: enterInterest('low', t4)).grid(row = rowCount, column = 2)
 Button (quiz, text="high", command=lambda: enterInterest('high', t4)).grid(row = rowCount, column = 3)
 rowCount += 1
+
 '''
 for t in topicDict:
     a = t
@@ -169,7 +167,8 @@ Submit buttom
 def click():
     userInput['name'] = name.get()
     userInput['party'] = party.get()
-    userInput['city'] = city.get()
+    userInput['zipcode'] = zipcode.get()
+    userInput['state'] = state.get()
     userInput['issue'] = issue.get()
     Label(mail, text = 'Information received, gathering data...', bg = 'white') \
     .grid(row = 9, column = 3, columnspan = 3, sticky = W)
@@ -193,26 +192,38 @@ Label(mail, text='Party Affiliation: ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 5, column = 2, sticky = W)
 party = Entry(mail, width = 20, bg = 'white')
 party.grid(row = 5, column = 3, sticky = W)
-Label(mail, text='City, State: ',
+Label(mail, text='Zipcode: ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 6, column = 2, sticky = W)
-city = Entry(mail, width = 20, bg = 'white')
-city.grid(row = 6, column = 3, sticky = W)
-Label(mail, text='Issue/Concern: ',
+zipcode = Entry(mail, width = 20, bg = 'white')
+zipcode.grid(row = 6, column = 3, sticky = W)
+Label(mail, text='State: ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 7, column = 2, sticky = W)
+state = Entry(mail, width = 20, bg = 'white')
+state.grid(row = 7, column = 3, sticky = W)
+Label(mail, text='Issue/Concern: ',
+bg = 'pink', font = 'Arial 13 bold') .grid(row = 8, column = 2, sticky = W)
 issue = Entry(mail, width = 20, bg = 'white')
-issue.grid(row = 7, column = 3, sticky = W)
-Label(mail, font = 'Arial 13 bold') .grid(row = 8, column = 2, rowspan = 1)
+issue.grid(row = 8, column = 3, sticky = W)
+Label(mail, font = 'Arial 13 bold') .grid(row = 9, column = 2, rowspan = 1)
 Button (mail, text = 'SUBMIT', width = 100, command=click) \
-.grid(row = 9, column = 2, sticky = W)
-Label(mail, font = 'Arial 13 bold') .grid(row = 10, column = 2)
+.grid(row = 10, column = 2, sticky = W)
+Label(mail, font = 'Arial 13 bold') .grid(row = 11, column = 2)
 output = Text (mail, width = 75, height = 20, wrap = WORD, bg = 'white') 
-output.grid(row = 11, column = 2, columnspan = 3, sticky = W)
+output.grid(row = 12, column = 2, columnspan = 3, sticky = W)
 
 '''
 Make research
 '''
 Label(cand, text='Candidate Research').pack()
 Button(cand, text='Go to home screen', command=lambda:raise_frame(main)).pack()
+
+'''
+Get representatives
+'''
+# dictionary of representatives
+senator = sr.findSenators(userInput[zipcode])
+# dictionary of representatives
+houserep = sr.findHouseRep(userInput[state])
 
 # run
 raise_frame(main)
