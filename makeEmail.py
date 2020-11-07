@@ -13,21 +13,57 @@ try:
 except ImportError:  
     print("No module named 'google' found") 
   
+alphabets= "([A-Za-z])"
+prefixes = "(Mr|St|Mrs|Ms|Dr)[.]"
+suffixes = "(Inc|Ltd|Jr|Sr|Co)"
+starters = "(Mr|Mrs|Ms|Dr|He\s|She\s|It\s|They\s|Their\s|Our\s|We\s|But\s|However\s|That\s|This\s|Wherever)"
+acronyms = "([A-Z][.][A-Z][.](?:[A-Z][.])?)"
+websites = "[.](com|net|org|io|gov)"
+
+def split_into_sentences(text):
+    text = " " + text + "  "
+    text = text.replace("\n"," ")
+    text = re.sub(prefixes,"\\1<prd>",text)
+    text = re.sub(websites,"<prd>\\1",text)
+    if "Ph.D" in text: text = text.replace("Ph.D.","Ph<prd>D<prd>")
+    text = re.sub("\s" + alphabets + "[.] "," \\1<prd> ",text)
+    text = re.sub(acronyms+" "+starters,"\\1<stop> \\2",text)
+    text = re.sub(alphabets + "[.]" + alphabets + "[.]" + alphabets + "[.]","\\1<prd>\\2<prd>\\3<prd>",text)
+    text = re.sub(alphabets + "[.]" + alphabets + "[.]","\\1<prd>\\2<prd>",text)
+    text = re.sub(" "+suffixes+"[.] "+starters," \\1<stop> \\2",text)
+    text = re.sub(" "+suffixes+"[.]"," \\1<prd>",text)
+    text = re.sub(" " + alphabets + "[.]"," \\1<prd>",text)
+    if "”" in text: text = text.replace(".”","”.")
+    if "\"" in text: text = text.replace(".\"","\".")
+    if "!" in text: text = text.replace("!\"","\"!")
+    if "?" in text: text = text.replace("?\"","\"?")
+    text = text.replace(".",".<stop>")
+    text = text.replace("?","?<stop>")
+    text = text.replace("!","!<stop>")
+    text = text.replace("<prd>",".")
+    sentences = text.split("<stop>")
+    sentences = sentences[:-1]
+    sentences = [s.strip() for s in sentences]
+    return sentences
+
 # to search
 def getURLs(q): 
     query = q
     sites = set()
-    for j in search(query, tld="co.in", num=3, stop=3, pause=2): 
+    for j in search(query, tld="co.in", num=10, stop=10, pause=2): 
         sites.add(j)
     return sites 
 
-
+#looks through all the sites makes dictionary of sources to key quotes
 def lookThroughSources(sites):
-    sentenceSet = set()
+    sentenceDict = dict()
     for address in sites:
         text = getPageText(address)
-        searchPageText(text, sentenceSet)
-
+        if text == None:
+            continue
+        searchPageText(text, sentenceDict, address)
+    print(sentenceDict)
+    
 def getPageText(address):
     url = address
     #html = urlopen(url).read()
@@ -39,37 +75,48 @@ def getPageText(address):
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii')
     req = urllib.request.Request(url, data, headers)
-    response = urllib.request.urlopen(req)
-    html = response.read()
-    soup = BeautifulSoup(html, features="html.parser")
+    try:
+        response = urllib.request.urlopen(req)
+        html = response.read()
+        soup = BeautifulSoup(html, features="html.parser")
 
-    # kill all script and style elements
-    for script in soup(["script", "style"]):
-        script.extract()    # rip it out
+        # kill all script and style elements
+        for script in soup(["script", "style"]):
+            script.extract()    # rip it out
 
-    # get text
-    text = soup.get_text()
+        # get text
+        text = soup.get_text()
 
-    # break into lines and remove leading and trailing space on each
-    lines = (line.strip() for line in text.splitlines())
-    # break multi-headlines into a line each
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    # drop blank lines
-    text = '\n'.join(chunk for chunk in chunks if chunk)
-
+        # break into lines and remove leading and trailing space on each
+        lines = (line.strip() for line in text.splitlines())
+        # break multi-headlines into a line each
+        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+        # drop blank lines
+        text = '\n'.join(chunk for chunk in chunks if chunk)
+    except:
+        return
     return text
 
 
-def searchPageText(text, set):
-    sentences = text.split("\n") 
-    #according to
+#retrieve the notable quotes
+def searchPageText(text, localDict, address):
+    sentences = split_into_sentences(text)
+    sourceSet = set()
+    for element in sentences:
+        if len(element.split(" ")) < 6:
+            continue
+        else:
+            if re.finditer('according to', element):
+                sourceSet.add(element)
+            if re.finditer('%', element) or re.finditer('percent', element):
+                sourceSet.add(element)
+            if re.finditer('because', element):
+                sourceSet.add(element)
+    localDict[address] = sourceSet
 
-    #percent
 
-    #results in
 
-    #query [1......n]
-sourcesSet = getURLs("gun control bad") 
+sourcesSet = getURLs("abortion bad") 
 lookThroughSources(sourcesSet)
 
 
