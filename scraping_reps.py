@@ -35,5 +35,3 @@ def findHouseRep(zipCode):
     soup = BeautifulSoup(req.content, 'html.parser')
     currentRep = soup.find("div", id="PossibleReps").find("a").get_text()
     return currentRep
-
-print(findSenators('New York'))
