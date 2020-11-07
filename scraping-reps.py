@@ -1,4 +1,6 @@
 #for finding reps and their emails
+import module_manager
+module_manager.review()
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,10 +13,16 @@ headers = {
     }
 
 def findSenators(state):
-    senatorsUrl = "https://en.wikipedia.org/wiki/List_of_current_United_States_senators"
+    senatorsUrl = "https://en.wikipedia.org/wiki/List_of_United_States_senators_from_" + state
     req = requests.get(senatorsUrl, headers)
     soup = BeautifulSoup(req.content, 'html.parser')
-    print(soup.prettify())
+    currentSenators = soup.select("div[class='thumbcaption text-align-center']")
+    value = []
+    for senator in currentSenators:
+        pass
+        #will add senators to list to return
+    return value
 
 
-findSenators("yay")
+
+findSenators("Alabama")
