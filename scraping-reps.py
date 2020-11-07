@@ -1,4 +1,6 @@
 #for finding reps and their emails
+import module_manager
+module_manager.review()
 import requests
 from bs4 import BeautifulSoup
 
@@ -11,10 +13,24 @@ headers = {
     }
 
 def findSenators(state):
-    senatorsUrl = "https://en.wikipedia.org/wiki/List_of_current_United_States_senators"
+    senatorsUrl = "https://en.wikipedia.org/wiki/List_of_United_States_senators_from_" + state
     req = requests.get(senatorsUrl, headers)
     soup = BeautifulSoup(req.content, 'html.parser')
-    print(soup.prettify())
+    currentSenators = soup.select("div[class='thumbcaption text-align-center']")
+    value = set()
+    for senator in currentSenators:
+        person = senator.find("a").get_text()
+        value.add(person)
+    return value
+
+def findHouseRep(zipCode):
+    houseUrl = "https://ziplook.house.gov/htbin/findrep_house?ZIP=" + str(zipCode)
+    req = requests.get(houseUrl, headers)
+    soup = BeautifulSoup(req.content, 'html.parser')
+    currentRep = soup.find("div", id="PossibleReps").find("a").get_text()
+    return currentRep
 
 
-findSenators("yay")
+
+
+findHouseRep(15213)
