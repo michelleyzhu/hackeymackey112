@@ -4,7 +4,6 @@ from tkmacosx import Button
 import random
 import string
 import time
-import processTopics
 import scraping_reps as sr
 from dataclasses import make_dataclass
 
