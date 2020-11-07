@@ -3,6 +3,7 @@ import module_manager
 module_manager.review()
 import requests
 from bs4 import BeautifulSoup
+import string
 
 headers = {
     'Access-Control-Allow-Origin': '*',
@@ -13,6 +14,11 @@ headers = {
     }
 
 def findSenators(state):
+    state = state.capitalize()
+    if ' ' in state:
+        space = state.find(' ')
+        state.replace(' ', '_')
+        state = state[:space + 1] + state[space + 1].upper() + state[space + 2:]
     senatorsUrl = "https://en.wikipedia.org/wiki/List_of_United_States_senators_from_" + state
     req = requests.get(senatorsUrl, headers)
     soup = BeautifulSoup(req.content, 'html.parser')
@@ -29,3 +35,5 @@ def findHouseRep(zipCode):
     soup = BeautifulSoup(req.content, 'html.parser')
     currentRep = soup.find("div", id="PossibleReps").find("a").get_text()
     return currentRep
+
+print(findSenators('New York'))
