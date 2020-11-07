@@ -24,11 +24,11 @@ ops = Frame(root)
 mail = Frame(root)
 cand = Frame(root)
 f5 = Frame(root)
-f6 = Frame(root)
+victory = Frame(root)
 f7 = Frame(root)
 userInput = dict()
 
-for frame in (main, quiz, mail, cand, ops, f5, f6):
+for frame in (main, quiz, mail, cand, ops, f5, victory, f7):
     frame.grid(row=0, column=0, sticky='news')
 
 '''
@@ -69,12 +69,13 @@ fg = 'black', font = 'times 30 bold', width = w, height = h, image = search, \
 command=lambda:raise_frame(cand)).grid(row = 1, column = 2)
 # random button
 Button (main, compound=TOP, text = 'idk', bg = bgcolor, 
-fg = 'black', font = 'times 20 bold', width = w, height = h, \
+fg = 'black', font = 'times 30 bold', width = w, height = h,  \
 command=lambda:raise_frame(f5)).grid(row = 2, column = 0)
 # random button
-Button (main, compound=TOP, text = 'idk', bg = bgcolor, 
-fg = 'black', font = 'times 20 bold', width = w, height = h, \
-command=lambda:raise_frame(f6)).grid(row = 2, column = 1)
+victory = PhotoImage(file = "pictures/victory.png")
+Button (main, compound=TOP, text = 'path to victory', bg = bgcolor, image = victory,
+fg = 'black', font = 'times 30 bold', width = w, height = h, \
+command=lambda:raise_frame(victory)).grid(row = 2, column = 1)
 # random button
 Button (main, compound=TOP, text = 'idk', bg = bgcolor, 
 fg = 'black', font = 'times 20 bold', width = w, height = h, \
@@ -134,6 +135,8 @@ def click():
         output.insert(END, '\nYour senators are: ' + ', '.join(sr.findSenators(userInput['state'])))
     else:
         output.insert(END, '\ninvalid state')
+    
+
 '''
 Make mail
 '''
