@@ -8,7 +8,7 @@ import time
 import processTopics
 import scraping_reps as sr
 from dataclasses import make_dataclass
-from quizClass import generateInterestQuiz
+from quizClass import *
 
 def raise_frame(frame):
     frame.tkraise()
@@ -107,7 +107,7 @@ for t in topicDict:
         options=topicDict[t], opinionSaved = False, opinion = None)
     responses[t] = newTopic
 
-generateInterestQuiz(main,quiz,ops,topicDict,responses)
+generateInterestQuiz(frame,main,quiz,ops,topicDict,responses)
 ######################################################################
 # ops page
 ######################################################################
