@@ -8,7 +8,7 @@ import time
 import processTopics
 import scraping_reps as sr
 from dataclasses import make_dataclass
-from quiz import *
+from quizClass import generateInterestQuiz
 
 def raise_frame(frame):
     frame.tkraise()
