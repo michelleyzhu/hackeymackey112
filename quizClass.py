@@ -52,6 +52,10 @@ def enterOpinion(responses,opinion,t):
         print(response,responses[response].opinion)
     print("----end opinions---")
 
+def updateResults():
+    raise_frame(results)
+
+
 def generateInterestQuiz(frame,main,quiz,ops,topicDict,responses):
     # Quiz Header
     qRow = 1
@@ -60,16 +64,24 @@ def generateInterestQuiz(frame,main,quiz,ops,topicDict,responses):
     Label (quiz, text='Please rate your interest \
         level in the following issues').grid(row = qRow,column = 1, columnspan = 3)
     qRow += 1
-
-    oRow = [1]
+    
     # Opinions Header
+    oRow = [1]
     Label (ops, text='Political Alignment Quiz').grid(row = oRow[0],column = 1, columnspan = 3)
     oRow[0] += 1
     Label (ops, text='Please choose the option which best \
         represents your opinions').grid(row = oRow[0],column = 1, columnspan = 3)
     oRow[0] += 1
-
+    '''
+    # Results Header
+    rRow = 1
+    Label (quiz, text='Political Alignment Quiz').grid(row = qRow,column = 1, columnspan = 3)
+    qRow += 1
+    Label (quiz, text='Here are your results.').grid(row = qRow,column = 1, columnspan = 3)
+    qRow += 1
+    '''
     # Buttons for selecting interest levels in each topic
+    # Adds opinions within enterInterest
     for t in topicDict:
         Label (quiz, text=t).grid(row = qRow, column = 1)
         Button (quiz, text="low",command=lambda x=t: enterInterest(responses,topicDict,ops,'low', x,oRow))\
@@ -85,15 +97,13 @@ def generateInterestQuiz(frame,main,quiz,ops,topicDict,responses):
     Button (quiz, text='Go to home screen', \
         command=lambda:raise_frame(main)).grid(row = qRow, column = 1, columnspan = 3)
 
-
-    #Quiz footer
+    #Opinion footer
     flexButts["back"] = Button (ops, text='Return to quiz screen', \
         command=lambda:raise_frame(quiz))
     flexButts["submit"] = Button (ops, text='Submit opinions(next)', \
-        command=lambda:raise_frame(ops))
+        command=lambda:updateResults())
     flexButts["home"] = Button (ops, text='Go to home screen', \
         command=lambda:raise_frame(main))
-
     for index in ['back',"submit","home"]:
             flexButts[index].grid(row = oRow[0], column = 1, columnspan = 3)
             oRow[0] += 1
