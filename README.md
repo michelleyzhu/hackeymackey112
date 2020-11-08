@@ -7,8 +7,11 @@ Using information gathered from our political belief quiz and linguistic analysi
 Project by Alexis Axon, Michelle Li, Michelle Zhu and Sophie Liu
 
 Necessary modules/installs/imports:
--urllib.request
--beautifulSoup
--regex
--google (pip install google) If using Mac go to Macintosh HD > Applications > Python folder (or whatever version of python you're using) > double click on "Install Certificates.command"
+urllib.request, beautifulSoup, regex, google(pip install google) 
+
+If using Mac go to Macintosh HD > Applications > Python folder (or whatever version of python you're using) > double click on "Install Certificates.command"
+
+How to run our program:
+  Download all the files into the same folder. Open michelle.py in VSCode or any Python text compiler and then click run. 
+  There should be a tkinter that pops up! Have fun with the features!
 
