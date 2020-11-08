@@ -177,11 +177,11 @@ def click():
         senators = list(senators)
         Label(mail, text = 'Choose a politician to email: ', bg = 'pink', font = 'Arial 13 bold') \
         .grid(row = 13, column = 2, sticky = W)
-        Button (mail, text = houserep, width = 100, command=generateEmail(houserep, 'representative')) \
+        Button (mail, text = houserep, width = 100, command= lambda x=houserep: generateEmail(x, 'Representative') ) \
         .grid(row = 13, column = 3, columnspan = 3, sticky = W)
-        Button (mail, text = senators[0], width = 100, command=generateEmail(senators[0], 'senator')) \
+        Button (mail, text = senators[0], width = 100, command=lambda x=senators[0]: generateEmail(x, 'Senator')) \
         .grid(row = 13, column = 3, columnspan = 3)
-        Button (mail, text = senators[1], width = 100, command=generateEmail(senators[1], 'senator')) \
+        Button (mail, text = senators[1], width = 100, command=lambda x=senators[1]: generateEmail(x, 'Senator')) \
         .grid(row = 13, column = 3, columnspan = 3, sticky = E)
 
 
