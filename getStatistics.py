@@ -112,7 +112,3 @@ def searchPageText(text, localDict, address):
     localDict[address] = sourceSet
 
 
-
-sourcesSet = getURLs("tax wealthy good") 
-lookThroughSources(sourcesSet)
-
