@@ -14,9 +14,13 @@ from dataclasses import make_dataclass
 from quizClass import *
 import makeEmail
 import scrapeVoteRecords
+import quizClass
 
 def raise_frame(frame):
     frame.tkraise()
+
+
+
 
 root = Tk()
 root.title("Election Dashboard")
@@ -115,9 +119,9 @@ def generateEmail(politician, position):
         '''
     output.insert(END, emailText)
     if position == 'representative':
-        pollink.insert(f'https://{lastname}.house.gov/contact')
+        pollink.insert(END, f'https://{lastname}.house.gov/contact')
     else:
-        pollink.insert(f"https://{lastname}.senate.gov/contact")
+        pollink.insert(END, f"https://{lastname}.senate.gov/contact")
 
 '''
 Submit button
