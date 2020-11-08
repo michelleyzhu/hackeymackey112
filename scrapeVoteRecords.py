@@ -32,7 +32,7 @@ def findIntroducedBills(topic, chamber, specificInterest, userBelief):
     billCosponsors = soup.find_all("span", class_="result-item")[::8]
     billUrls = []
     billParties = []
-    for i in range(10):
+    for i in range(1):
         #try:
         billUrls.append("https://www.congress.gov/" + billNums[i].find("a").get("href"))
         billNums[i] = billNums[i].find("a").get_text()
@@ -40,10 +40,9 @@ def findIntroducedBills(topic, chamber, specificInterest, userBelief):
         links = billCosponsors[i].find_all("a")
         billCosponsors[i] = "https://www.congress.gov/" + links[1].get("href")
         billParties.append(billIdeology(billCosponsors[i]))
-        print(billNums[i], billTitles[i], billCosponsors[i], billUrls[i])
     result = []
     userAgreement = []
-    for i in range(10):
+    for i in range(1):
         try:
             userAgreement.append(billParties[i] == "I" or billParties[i] == userBelief)
             result.append((billNums[i], billTitles[i], userAgreement[i], billUrls[i]))
@@ -77,7 +76,5 @@ def billIdeology(url):
         return "D"
     return "Bipartisan"
     
-
-print(findIntroducedBills("Health", "House", "abortion", "D"))
 
 #print(billIdeology("https://www.congress.gov/bill/116th-congress/house-bill/1692/cosponsors?q={%22search%22:[%22abortion%22]}&r=3&s=2&searchResultViewType=expanded"))
