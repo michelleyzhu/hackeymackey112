@@ -20,6 +20,7 @@ root.geometry('1206x750')
 main = Frame(root)
 quiz = Frame(root)
 ops = Frame(root)
+results = Frame(root)
 mail = Frame(root)
 cand = Frame(root)
 f5 = Frame(root)
@@ -27,7 +28,7 @@ victory = Frame(root)
 f7 = Frame(root)
 userInput = dict()
 
-for frame in (main, quiz, mail, cand, ops, f5, victory, f7):
+for frame in (main, quiz, mail, cand, ops, results, f5, victory, f7):
     frame.grid(row=0, column=0, sticky='news')
 
 '''
@@ -69,33 +70,6 @@ command=lambda:raise_frame(cand)).grid(row = 1, column = 2)
 
 
 
-# interest is yes, no or "unanswered"
-topic = make_dataclass('topic', 
-    ['name','interest', 'options', 'opinion','opinionSaved'])
-
-
-'''
-Make quiz
-'''
-# List of topics and their options
-topicDict = {
-    'legalized abortion' : ['pro-life', 'pro-choice'],
-    'gun rights' : ['favor gun control', 'oppose gun control'],
-    'tax the ultra-wealthy' : ['oppose wealth tax', 'favor wealth tax'],
-    'undocumented immigration' : ['support deportation', 'favor assimilation']
-}
-
-# Initializing user responses to topics
-responses = dict()
-for t in topicDict:
-    newTopic = topic(interest = "unanswered", name = t, 
-        options=topicDict[t], opinionSaved = False, opinion = None)
-    responses[t] = newTopic
-
-generateInterestQuiz(frame,main,quiz,ops,topicDict,responses)
-######################################################################
-# ops page
-######################################################################
 
 
 
@@ -158,6 +132,37 @@ Button (mail, text = 'SUBMIT', width = 100, command=click) \
 Label(mail, font = 'Arial 13 bold') .grid(row = 11, column = 2)
 output = Text (mail, width = 75, height = 20, wrap = WORD, bg = 'white') 
 output.grid(row = 13, column = 2, columnspan = 3, sticky = W)
+
+
+
+# interest is yes, no or "unanswered"
+topic = make_dataclass('topic', 
+    ['name','interest', 'options', 'opinion','opinionSaved'])
+
+
+'''
+Make quiz
+'''
+# List of topics and their options
+topicDict = {
+    'legalized abortion' : ['pro-choice','pro-life'],
+    'gun control' : ['favor gun control', 'oppose gun control'],
+    'tax the ultra-wealthy' : ['favor wealth tax','oppose wealth tax'],
+    'undocumented immigration' : ['favor immigration','support deportation']
+}
+
+# Initializing user responses to topics
+responses = dict()
+for t in topicDict:
+    newTopic = topic(interest = "unanswered", name = t, 
+        options=topicDict[t], opinionSaved = False, opinion = None)
+    responses[t] = newTopic
+
+generateInterestQuiz(frame,main,mail,quiz,ops,results,topicDict,responses,issue)
+######################################################################
+# ops page
+######################################################################
+
 
 '''
 Make research
