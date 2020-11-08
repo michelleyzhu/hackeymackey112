@@ -81,6 +81,9 @@ command=lambda:raise_frame(cand)).grid(row = 1, column = 2)
 Generate email
 '''
 def generateEmail(politician, position):
+    lastname = politician.split(' ')[-1]
+    output.delete(0.0, END)
+    pollink.insert(0.0, END)
     if position == 'representative':
         pos1 = 'House'
     else:
@@ -111,6 +114,10 @@ def generateEmail(politician, position):
         {userInput['name']}
         '''
     output.insert(END, emailText)
+    if position == 'representative':
+        pollink.insert(f'https://{lastname}.house.gov/contact')
+    else:
+        pollink.insert(f"https://{lastname}.senate.gov/contact")
 
 '''
 Submit button
@@ -124,7 +131,7 @@ def click():
     userInput['party'] = party.get()
     userInput['zipcode'] = zipcode.get()
     userInput['state'] = state.get()
-    userInput['topic'] = topic.get()
+    userInput['topic'] = topic1.get()
     userInput['issue'] = str(issue.get())
     if userInput['zipcode'] != None:
         try:
@@ -193,8 +200,8 @@ state.grid(row = 7, column = 3, sticky = W)
 
 Label(mail, text='Topic: ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 8, column = 2, sticky = W)
-topic = Entry(mail, width = 20, bg = 'white')
-topic.grid(row = 8, column = 3, sticky = W)
+topic1 = Entry(mail, width = 20, bg = 'white')
+topic1.grid(row = 8, column = 3, sticky = W)
 
 Label(mail, text='Specific Issue/Concern: ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 9, column = 2, sticky = W)
@@ -209,6 +216,8 @@ Label(mail, font = 'Arial 13 bold') .grid(row = 12, column = 2)
 output = Text (mail, width = 75, height = 20, wrap = WORD, bg = 'white') 
 output.grid(row = 16, column = 2, columnspan = 3, sticky = W)
 
+pollink = Text (mail, width = 75, height = 20, wrap = WORD, bg = 'white') 
+pollink.grid(row = 17, column = 2, columnspan = 3, sticky = W)
 
 
 # interest is yes, no or "unanswered"
