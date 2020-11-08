@@ -12,3 +12,7 @@ Necessary modules/installs/imports:
 -regex
 -google (pip install google) If using Mac go to Macintosh HD > Applications > Python folder (or whatever version of python you're using) > double click on "Install Certificates.command"
 
+How to run our program:
+  Download all the files into the same folder. Open michelle.py in VSCode or any Python text compiler and then click run. 
+  There should be a tkinter that pops up! Have fun with the features!
+
