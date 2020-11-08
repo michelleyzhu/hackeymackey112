@@ -19,9 +19,6 @@ import quizClass
 def raise_frame(frame):
     frame.tkraise()
 
-
-
-
 root = Tk()
 root.title("Election Dashboard")
 root.configure(background = 'black')
@@ -85,9 +82,9 @@ command=lambda:raise_frame(cand)).grid(row = 1, column = 2)
 Generate email
 '''
 def generateEmail(politician, position):
-    lastname = politician.split(' ')[-1]
+    lastname = politician.split(' ')[1].lower()
     output.delete(0.0, END)
-    pollink.insert(0.0, END)
+    pollink.delete(0.0, END)
     if position == 'representative':
         pos1 = 'House'
     else:
@@ -118,10 +115,13 @@ def generateEmail(politician, position):
         {userInput['name']}
         '''
     output.insert(END, emailText)
+    link = 'Link to contact representative: '
     if position == 'representative':
-        pollink.insert(END, f'https://{lastname}.house.gov/contact')
+        link += f'https://{lastname}.house.gov/contact'
+        pollink.insert(END, link)
     else:
-        pollink.insert(END, f"https://{lastname}.senate.gov/contact")
+        link += f"https://{lastname}.senate.gov/contact"
+        pollink.insert(END, link)
 
 '''
 Submit button
@@ -202,7 +202,7 @@ bg = 'pink', font = 'Arial 13 bold') .grid(row = 7, column = 2, sticky = W)
 state = Entry(mail, width = 20, bg = 'white')
 state.grid(row = 7, column = 3, sticky = W)
 
-Label(mail, text='Topic: ',
+Label(mail, text='Topic (Ex. Health): ',
 bg = 'pink', font = 'Arial 13 bold') .grid(row = 8, column = 2, sticky = W)
 topic1 = Entry(mail, width = 20, bg = 'white')
 topic1.grid(row = 8, column = 3, sticky = W)
@@ -234,10 +234,10 @@ Make quiz
 '''
 # List of topics and their options
 topicDict = {
-    'legalized abortion' : ['pro-choice','pro-life'],
-    'gun control' : ['favor gun control', 'oppose gun control'],
-    'tax the ultra-wealthy' : ['favor wealth tax','oppose wealth tax'],
-    'undocumented immigration' : ['favor immigration','support deportation']
+    'health' : ['pro-choice','pro-life'],
+    'crime and law enforcement' : ['favor gun control', 'oppose gun control'],
+    'taxation' : ['favor wealth tax','oppose wealth tax'],
+    'immigration' : ['favor immigration','support deportation']
 }
 
 # Initializing user responses to topics
@@ -247,7 +247,7 @@ for t in topicDict:
         options=topicDict[t], opinionSaved = False, opinion = None)
     responses[t] = newTopic
 
-generateInterestQuiz(frame,main,mail,quiz,ops,results,topicDict,responses,issue)
+generateInterestQuiz(frame,main,mail,quiz,ops,results,topicDict,responses,topic1)
 ######################################################################
 # ops page
 ######################################################################

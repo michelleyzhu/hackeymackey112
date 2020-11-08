@@ -61,7 +61,7 @@ def enterOpinion(responses,topicDict,mail,results,resultsButtons,opinion,t,rRow,
         if(responses[topicName].opinion != None):
             if(not sameOpinion):
                 resultsButtons[responses[topicName].name] = Button (results, text=responses[topicName].opinion,\
-                    command=lambda x=responses[topicName].opinion: goToMail(mail,x,issue))
+                    command=lambda x=responses[topicName].name: goToMail(mail,x,issue))
                 #resultsButtons[topicName] = Button (results, text=topicName + "m",\
                     #command=goToMail(mail,responses[topicName].opinion))
             resultsButtons[topicName].grid(row = rRow, column = col)
@@ -95,6 +95,7 @@ def goToMail(mail,searchQuery,issue):
     #issue.grid_forget()
     #issue = Entry(mail, width = 20, bg = 'white')
     #issue.grid(row = 8, column = 3, sticky = W)
+    issue.insert(END, searchQuery)
     print(searchQuery)
     raise_frame(mail)
     # passes in searchQuery somehow
@@ -125,8 +126,7 @@ def generateInterestQuiz(frame,main,mail,quiz,ops,results,topicDict,responses,is
 
     for response in responses:
         resultsButtons[responses[response].name] = Button (results, text=responses[response].opinion,\
-            command=lambda x=responses[response].opinion: goToMail(mail,x,issue))
-    
+            command=lambda x=responses[response].name: goToMail(mail,x,issue))
             
 
     # Buttons for selecting interest levels in each topic
