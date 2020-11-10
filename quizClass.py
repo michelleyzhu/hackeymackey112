@@ -20,7 +20,7 @@ def enterInterest(responses,topicDict,mail,ops,results,resultsButtons,level,t,oR
         flexButts[(t,'fir')] = Button (ops, text=topicDict[responses[t].name][0],\
             command=lambda x=t: enterOpinion(responses,topicDict,mail,results,resultsButtons,topicDict[responses[t].name][0], x,rRow,issue))
         flexButts[(t,'sec')] = Button (ops, text=topicDict[responses[t].name][1], \
-            command=lambda x=t: enterOpinion(responses,topicDict,mail,results,resultsButtons,topicDict[responses[t].name][1], x,rRowissue))
+            command=lambda x=t: enterOpinion(responses,topicDict,mail,results,resultsButtons,topicDict[responses[t].name][1], x,rRow,issue))
 
         col = 1
         for index in ["lab","fir","sec"]:
